@@ -30,19 +30,3 @@ jobs:
         
       - name: run Console-Launcher.bat
         run: python -c "import subprocess; subprocess.call([r'Console-Launcher.bat'])"
-
-      - name: Test -1
-        run: python -c "import subprocess; subprocess.call([r'Console-Launcher.bat'])"
-
-      - name: Test -2
-        run: python -c "import subprocess; subprocess.call([r'Console-Launcher.bat'])"
-
-      - name: Test -3
-        run: python -c "import subprocess; subprocess.call([r'Console-Launcher.bat'])"
-
-      - name: final Test
-        run: python -c "import subprocess; subprocess.call([r'Console-Launcher.bat'])"
-
-
-
-
