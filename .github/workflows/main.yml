@@ -28,5 +28,5 @@ jobs:
       #- name: Install requirements
       #  run: pip install -r requirements.txt
         
-      - name: Test ashar
+      - name: Test Console-Launcher.bat
         run: python start.py
