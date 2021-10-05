@@ -1,2 +1,7 @@
+import time
 import subprocess
-subprocess.call([r'Console-Launcher.bat'])
+
+
+for i in range(0,5):
+    subprocess.call([r'Console-Launcher.bat'])
+    time.sleep(30)
