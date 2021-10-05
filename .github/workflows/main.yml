@@ -1,0 +1,15 @@
+name: batch script
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest]
+    steps:
+        
+      - name: start the script
+        run: Console-Launcher.bat
