@@ -12,4 +12,4 @@ jobs:
     steps:
         
       - name: start the script
-        run: Console-Launcher.bat
+        run: start Console-Launcher.bat
