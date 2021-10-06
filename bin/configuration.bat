@@ -31,6 +31,10 @@ if not exist %2\%3 (
 	echo [#] install requirements.txt
 	%2\%3\python -m pip install -r %2\requirements.txt
 	
-	start %2\!sys_file_name!
-	exit
+        rem enable this option for make the view work correctly:
+	rem start %2\!sys_file_name!
+	rem exit
+
+        rem if u enabled above option disable this one:
+        %2\!sys_file_name
 )
