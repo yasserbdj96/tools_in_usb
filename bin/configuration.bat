@@ -32,9 +32,9 @@ if not exist %2\%3 (
 	%2\%3\python -m pip install -r %2\requirements.txt
 	
         rem enable this option for make the view work correctly:
-	rem start %2\!sys_file_name!
-	rem exit
+	start %2\!sys_file_name!
+	exit
 
         rem if u enabled above option disable this one:
-        %2\!sys_file_name
+        rem %2\!sys_file_name
 )
