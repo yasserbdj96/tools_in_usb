@@ -96,4 +96,6 @@ if "!input_c!"=="help" (
 )
 
 !input_c!
+exit
+pause
 goto start
