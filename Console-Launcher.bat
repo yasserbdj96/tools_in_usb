@@ -3,58 +3,57 @@ Setlocal EnableDelayedExpansion
 
 rem make symbels true:
 for /F "tokens=2 delims=:" %%C in ('chcp') do set /A "$CP=%%C"
-chcp 65001 > nul
+chcp 437 > nul
 
-set mypath=%~dp0
-set bats_file=bin
-set temps_folder=temps
-set sys_file_name=%~n0%~x0
-
+set mypath="%~dp0"
+set mypath_not_set=%~dp0
+set system_folder=bin
+set temp_folder=temps
+set configuration=!mypath!"!system_folder!\configuration.bat"
+set sys_file_name="%~n0%~x0"
+set python_console_tools=!mypath_not_set!!system_folder!\python_console_tools.py
 
 rem config.ini:
-FOR /F "tokens=*" %%A IN ('type "%mypath:~0,-1%\config.ini"') DO set %%A
-cls
+FOR /F "tokens=*" %%A IN ('type !mypath!"config.ini"') DO set %%A
 
 rem python3_configuration:
-if not "%python3%"=="" (
-    goto python3_configuration
+if not "%python%"=="" (
+    goto python_configuration
 )
 
-rem python3_configuration function:
-:python3_configuration
+:python_configuration
     set n=0
+    for %%a in (%python%) do (
 	
-    for %%a in (%python3%) do (
-	    set version=
-        set python3=%%a
-        set python3_path=%mypath:~0,-1%\python_!python3!\python
-        rem urls.ini:
-        FOR /F "tokens=*" %%A IN ('type "%mypath:~0,-1%\!bats_file!\urls.ini"') DO set %%A
-        rem download python3:
-        call %mypath:~0,-1%\!bats_file!\configuration.bat python!python3!_url %mypath:~0,-1% python_!python3!
+	    set python_version=%%a
+	
+	    rem urls.ini:
+        FOR /F "tokens=*" %%A IN ('type !mypath!"!system_folder!\urls.ini"') DO set %%A
+	
+	    rem configuration:
+	    call !configuration! python !python_version!
+		
+		
+		FOR /f %%G in ('""!mypath_not_set!python_!python_version!\python" "!python_console_tools!" -opt_1 !python_version!"') DO set version=%%G
+		
+		rem print run information:
+		"!mypath_not_set!python_!python_version!\python" "!python_console_tools!" -opt_2 !version! !n!
 		
 		if !n!==0 (
-		    set py=
-			set pi=
-		    set py_default=!python3_path!
-		) else (
-		    set py=!python3!
-			set pi=!python3!
+		    set version=
+			set py_default="!mypath_not_set!python_!python_version!\python"
 		)
 		
-		for /f %%i in ('!python3_path! !mypath!!bats_file!\python_console-tools.py -opt_1 !py!') do set version=%%i
+		set python_path="!mypath_not_set!python_!python_version!\python"
 		
-		!python3_path! !mypath!!bats_file!\python_console-tools.py -opt_2 !version!
-		
-		rem echo !version!
-		
-		
-		doskey python!version!=!python3_path! $*
-	    doskey pip!version!=!python3_path! -m pip $*
+		doskey python!version!=!python_path! $*
+	    doskey pip!version!=!python_path! -m pip $*
 
-		set /A n+=1
-    )
-
+        set /A n+=1
+		
+	)
+	
+chcp 65001 > nul
 :start
 echo.
 
@@ -74,9 +73,9 @@ set s2=^)──[
 set s3=]
 
 rem advanced view:
-if not "%python3%"=="" (
+if not "%python%"=="" (
     set ss=pass
-    for /f "delims=" %%i in ('!py_default! !mypath!!bats_file!\python_console-tools.py -opt_3 !sudo!') do %%i
+    for /f "delims=" %%i in ('"!py_default! "!python_console_tools!" -opt_3 !sudo!"') do %%i
 )
 
 rem normal view:
@@ -86,9 +85,15 @@ if not "%ss%"=="pass" (
 )
 
 rem sudo
-if "%input_c%"=="sudo" (
-    powershell -command "Start-Process cmd -ArgumentList '/c cd /d %CD% && %0' -Verb runas" & exit /b
+if "!input_c!"=="sudo" (
+    powershell -command "Start-Process cmd -ArgumentList '/c cd /d %CD% && !sys_file_name!' -Verb runas" & exit /b
 )
 
-%input_c%
+rem help list:
+if "!input_c!"=="help" (
+    !py_default! "!python_console_tools!" -h
+	goto start
+)
+
+!input_c!
 goto start
