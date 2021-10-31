@@ -42,12 +42,14 @@ if "!input_c!"=="sudo" (
 	rem powershell -command "Start-Process !mypath!!sys_file_name! -Verb runas"
 	
 	powershell -command "Start-Process cmd -ArgumentList '/c cd /d %CD% && !mypath_not_set!!sys_file_name_not_set!' -Verb runas"
+	echo.
 	goto cli
 )
 
 rem help list:
 if "!input_c!"=="help" (
     !py_default! "!python_console_tools!" -h
+	echo.
 	goto cli
 )
 
@@ -60,25 +62,29 @@ if "!input_c!"=="restart" (
 rem clear:
 if "!input_c!"=="clear" (
     !py_default! "!python_console_tools!" clear "!mypath_not_set!"
+	echo.
 	goto cli
 )
 
 rem ls:
 if "!input_c!"=="ls" (
     !py_default! "!python_console_tools!" ls
+	echo.
 	goto cli
 )
 
 rem install:
 if "!input_c!"=="install" (
     !py_default! "!python_console_tools!" install !mypath!
+	echo.
 	goto cli
 )
 
 rem uninstall:
 if "!input_c!"=="uninstall" (
     !py_default! "!python_console_tools!" uninstall !mypath!
+	echo.
 	goto cli
 )
-
+echo.
 !input_c!
