@@ -83,4 +83,6 @@ if not "%python%"=="" (
 :start
 rem cli:
 call !cli! %0
-goto start
+rem goto start
+pause
+exit
