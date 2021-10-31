@@ -63,7 +63,9 @@ if not "%python%"=="" (
 		
 		rem print run information:
 		if not "!opt:~0,6!"=="python" (
-		    "!mypath_not_set!python_!python_version!\python" "!python_console_tools!" -opt_2 !vx! !n!
+		    if "!fast_run!"=="false" (
+		        "!mypath_not_set!python_!python_version!\python" "!python_console_tools!" -opt_2 !vx! !n!
+			)
 		)
 		
 		set python_path="!mypath_not_set!python_!python_version!\python"

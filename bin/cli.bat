@@ -1,6 +1,10 @@
 :cli
 chcp 65001 > nul
-echo.
+
+if "!fast_run!"=="false" (
+	echo.
+)
+
 
 rem check if sudo or not:
 openfiles >nul 2>&1
