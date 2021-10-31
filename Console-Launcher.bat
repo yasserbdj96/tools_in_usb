@@ -85,4 +85,9 @@ if not "%python%"=="" (
 :start
 rem cli:
 call !cli! %0
-goto start
+
+rem enable this line
+rem goto start
+
+rem Delete this line if you want to run this program on your device
+exit
