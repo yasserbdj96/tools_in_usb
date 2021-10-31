@@ -32,6 +32,8 @@ if %1==python (
 	    rem install pip:
 	    echo [#] install pip.
 	    !mypath!"!folder_name!\python" "!mypath_not_set!!system_folder!\get-pip.py"
+		echo [#] upgrade pip.
+	    !mypath!"!folder_name!\python" -m pip install --upgrade pip
 	    echo [#] install requirements.txt
 	    !mypath!"!folder_name!\python" -m pip install -r "!mypath_not_set!requirements.txt"
     )

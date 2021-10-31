@@ -10,7 +10,9 @@ set mypath_not_set=%~dp0
 set system_folder=bin
 set temp_folder=temps
 set configuration=!mypath!"!system_folder!\configuration.bat"
+set cli=!mypath!"!system_folder!\cli.bat"
 set sys_file_name="%~n0%~x0"
+set sys_file_name_not_set=%~n0%~x0
 set python_console_tools=!mypath_not_set!!system_folder!\python_console_tools.py
 
 rem config.ini:
@@ -35,13 +37,33 @@ if not "%python%"=="" (
 		
 		
 		FOR /f %%G in ('""!mypath_not_set!python_!python_version!\python" "!python_console_tools!" -opt_1 !python_version!"') DO set version=%%G
+		set vx=!version!
 		
-		rem print run information:
-		"!mypath_not_set!python_!python_version!\python" "!python_console_tools!" -opt_2 !version! !n!
-		
+		set opt=%1
 		if !n!==0 (
 		    set version=
 			set py_default="!mypath_not_set!python_!python_version!\python"
+			
+			if "!opt!"=="python" (
+			    !py_default! %2
+			    goto start
+			)
+		)
+		
+        if "!opt:~0,7!"=="python3" (
+		    if "!opt!"=="python!vx!" (
+		        "!mypath_not_set!python_!python_version!\python" %2
+				goto start
+			)
+		)
+		
+        rem if "%1"==""python_run"" (cd "%2")
+		rem Console-Launcher.bat python388 python_test.py
+		
+		
+		rem print run information:
+		if not "!opt:~0,6!"=="python" (
+		    "!mypath_not_set!python_!python_version!\python" "!python_console_tools!" -opt_2 !vx! !n!
 		)
 		
 		set python_path="!mypath_not_set!python_!python_version!\python"
@@ -52,50 +74,11 @@ if not "%python%"=="" (
         set /A n+=1
 		
 	)
-	
-chcp 65001 > nul
+
+    if "!opt!"=="run" ( cd /D "%2" )
+
+
 :start
-echo.
-
-rem check if sudo or not:
-openfiles >nul 2>&1
-if %ErrorLevel% equ 0 ( 
-    set a=└─^$
-	set sudo=true
-) else (
-    set a=└─^>
-	set sudo=false
-)
-
-rem 
-set s1=^┌──(
-set s2=^)──[
-set s3=]
-
-rem advanced view:
-if not "%python%"=="" (
-    set ss=pass
-    for /f "delims=" %%i in ('"!py_default! "!python_console_tools!" -opt_3 !sudo!"') do %%i
-)
-
-rem normal view:
-if not "%ss%"=="pass" (
-    echo !s1!%USERNAME%@%COMPUTERNAME%!s2!%CD%!s3!
-    set /p input_c=!a!
-)
-
-rem sudo
-if "!input_c!"=="sudo" (
-    powershell -command "Start-Process cmd -ArgumentList '/c cd /d %CD% && !sys_file_name!' -Verb runas" & exit /b
-)
-
-rem help list:
-if "!input_c!"=="help" (
-    !py_default! "!python_console_tools!" -h
-	goto start
-)
-
-!input_c!
-exit
-pause
+rem cli:
+call !cli! %0
 goto start
