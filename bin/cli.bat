@@ -1,7 +1,7 @@
 :cli
 chcp 65001 > nul
 
-if "!fast_run!"=="false" (
+if "!quick_boot!"=="false" (
 	echo.
 )
 

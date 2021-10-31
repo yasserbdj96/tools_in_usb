@@ -1,6 +1,8 @@
 @echo off
 Setlocal EnableDelayedExpansion
 
+title 
+
 rem make symbels true:
 for /F "tokens=2 delims=:" %%C in ('chcp') do set /A "$CP=%%C"
 chcp 437 > nul
@@ -63,7 +65,7 @@ if not "%python%"=="" (
 		
 		rem print run information:
 		if not "!opt:~0,6!"=="python" (
-		    if "!fast_run!"=="false" (
+		    if "!quick_boot!"=="false" (
 		        "!mypath_not_set!python_!python_version!\python" "!python_console_tools!" -opt_2 !vx! !n!
 			)
 		)
@@ -83,6 +85,4 @@ if not "%python%"=="" (
 :start
 rem cli:
 call !cli! %0
-rem goto start
-pause
-exit
+goto start
