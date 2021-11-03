@@ -33,4 +33,7 @@ if not "%python%"=="" (
 :start
 rem cli:
 call !cli! %0
+
+rem delete this line
+exit
 goto start
