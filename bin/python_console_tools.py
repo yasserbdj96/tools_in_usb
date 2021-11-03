@@ -34,7 +34,7 @@ if sys.argv[1]=="-opt_1":
 # python to start:
 elif sys.argv[1]=="-opt_2":
     sps=17
-    if sys.argv[3]=="0":
+    if sys.argv[3]==sys.argv[4]:
         on=p1.c('==> ',yallew)+p1.c('python, pip ',green)+p1.c(' ==> ',yallew)+p1.c('[Default]',blue)
     else:
         on=p1.c('==> ',yallew)+p1.c(f'python{sys.argv[2]}, pip{sys.argv[2]}',green)

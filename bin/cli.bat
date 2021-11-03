@@ -36,11 +36,6 @@ if not "%ss%"=="pass" (
 rem sudo
 if "!input_c!"=="sudo" (
     chcp 437 > nul
-    rem powershell -command "Start-Process cmd -ArgumentList '/c !mypath!!sys_file_name!' -Verb runas" & exit /b
-	rem echo createobject("shell.application").shellexecute "!mypath!!sys_file_name! run %CD%",,,"runas",1 > runas.vbs & start /wait runas.vbs
-	
-	rem powershell -command "Start-Process !mypath!!sys_file_name! -Verb runas"
-	
 	powershell -command "Start-Process cmd -ArgumentList '/c cd /d %CD% && !mypath_not_set!!sys_file_name_not_set!' -Verb runas"
 	echo.
 	goto cli
