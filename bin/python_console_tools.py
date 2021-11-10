@@ -20,6 +20,8 @@ blue="#4285f4"
 yallew="#fbbc05"
 green="#34a853"
 
+sps=21
+
 # python version for start (from x.x.x to xxx):
 if sys.argv[1]=="-opt_1":
     version=""
@@ -33,15 +35,25 @@ if sys.argv[1]=="-opt_1":
 
 # python to start:
 elif sys.argv[1]=="-opt_2":
-    sps=17
     if sys.argv[3]==sys.argv[4]:
         on=p1.c('==> ',yallew)+p1.c('python, pip ',green)+p1.c(' ==> ',yallew)+p1.c('[Default]',blue)
     else:
         on=p1.c('==> ',yallew)+p1.c(f'python{sys.argv[2]}, pip{sys.argv[2]}',green)
     version=f'Python {sys.version.split("(")[0]}'
-    ve=" "*int(sps-len(version))
-    print(p1.c('[#] ',yallew)+p1.c(version,red)+ve+on)
+    ve="="*int(sps-len(version))
+    print(p1.c('[#] ',yallew)+p1.c(version,red)+p1.c(ve,yallew)+on)
+
+# python to start:
+elif sys.argv[1]=="-opt_2b":
+    #from subprocess import Popen    # now we can reference Popen
+    #process = Popen(['echo hii'])
+    import subprocess
+    git_version=subprocess.check_output(f"{sys.argv[2]}\git --version", shell=True).decode("utf-8").replace("version ","").capitalize()
     
+    ve="="*int(sps-len(git_version))
+    
+    print(p1.c('[#] ',yallew)+p1.c(git_version[:len(git_version)-1],red)+p1.c(f" {ve}==> ",yallew)+p1.c("bash, git ",green)+p1.c(' ==> ',yallew)+p1.c('[Default]',blue))
+
 ##
 elif sys.argv[1]=="-opt_3":
     COMPUTERNAME=p1.c("!COMPUTERNAME!",green)

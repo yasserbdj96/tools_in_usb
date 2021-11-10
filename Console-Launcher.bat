@@ -14,6 +14,7 @@ set temp_folder=temps
 set configuration=!mypath!"!system_folder!\configuration.bat"
 set cli=!mypath!"!system_folder!\cli.bat"
 set python_configuration=!mypath!"!system_folder!\python_configuration.bat"
+set git_configuration=!mypath!"!system_folder!\git_configuration.bat"
 set sys_file_name="%~n0%~x0"
 set sys_file_name_not_set=%~n0%~x0
 set python_console_tools=!mypath_not_set!!system_folder!\python_console_tools.py
@@ -24,7 +25,13 @@ FOR /F "tokens=*" %%A IN ('type !mypath!"config.ini"') DO set %%A
 rem python_configuration:
 if not "%python%"=="" (
     rem python3_configuration:
-    call !python_configuration!
+    call !python_configuration! %1 %2
+)
+
+rem git_configuration:
+if not "%git%"=="" (
+    rem git_configuration:
+    call !git_configuration!
 )
 
 
@@ -33,7 +40,4 @@ if not "%python%"=="" (
 :start
 rem cli:
 call !cli! %0
-
-rem delete this line
-exit
 goto start

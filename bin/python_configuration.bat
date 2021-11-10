@@ -21,14 +21,14 @@
 			
 			if "!opt!"=="python" (
 			    !py_default! %2
-			    goto start
+			    goto end
 			)
 		)
 		
         if "!opt:~0,7!"=="python3" (
 		    if "!opt!"=="python!vx!" (
 		        "!mypath_not_set!python_!python_version!\python" %2
-				goto start
+				goto end
 			)
 		)
 		
@@ -53,3 +53,6 @@
 	)
 
     if "!opt!"=="run" ( cd /D "%2" )
+	
+	
+:end
