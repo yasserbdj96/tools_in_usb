@@ -40,4 +40,5 @@ if not "%git%"=="" (
 :start
 rem cli:
 call !cli! %0
+exit
 goto start
