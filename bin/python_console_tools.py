@@ -78,7 +78,7 @@ elif sys.argv[1]=="-opt_3":
     
 #help_list:
 elif sys.argv[1]=="-h":
-    help_t="""Help:
+    help_t=f"""Help:
 ═════
 # In order to modify the settings and comprehensive control, please modify the file 'config.ini'.
 
@@ -101,12 +101,12 @@ elif sys.argv[1]=="-h":
 [USAGE]
     For run a Python script:                                     Examples:
     ------------------------                                     ---------
-    <Console-Launcher.bat> <python> <python_script_path>    |    Console-Launcher.bat python E:\ws\python_test.py
-                                                            |    Console-Launcher.bat python388 E:\ws\python_test.py
+    <Console-Launcher.bat> <python> <python_script_path>    |    Console-Launcher.bat python {sys.argv[2].replace("'","")}python_test.py
+                                                            |    Console-Launcher.bat python388 {sys.argv[2].replace("'","")}python_test.py
     
     To run this program in a specified path:                     Example:
     ----------------------------------------                     --------
-    <Console-Launcher.bat> run <your_path>                  |    Console-Launcher.bat run E:\ws\
+    <Console-Launcher.bat> run <your_path>                  |    Console-Launcher.bat run {sys.argv[2].replace("'","")}
 """
 
     print(help_t)

@@ -43,7 +43,7 @@ if "!input_c!"=="sudo" (
 
 rem help list:
 if "!input_c!"=="help" (
-    !py_default! "!python_console_tools!" -h
+    !py_default! "!python_console_tools!" -h '!mypath_not_set!'
 	rem echo.
 	goto cli
 )

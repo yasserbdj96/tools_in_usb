@@ -20,6 +20,8 @@
 			set py_default="!mypath_not_set!python_!python_version!\python"
 			
 			if "!opt!"=="python" (
+			    doskey python=!py_default! $*
+	            doskey pip=!py_default! -m pip $*
 			    !py_default! %2
 			    goto end
 			)

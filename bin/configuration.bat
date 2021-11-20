@@ -56,7 +56,8 @@ if %1==git (
             echo [#] file '!mypath_not_set!!temp_folder!\!package!' exist.
 		    echo [#] Unzip the file '!mypath_not_set!!temp_folder!\!package!'.
 	        rem powershell Expand-Archive -Path '!mypath_not_set!!temp_folder!\!package!' -DestinationPath '!mypath_not_set!!folder_name!' -Force
-			"%ProgramFiles%\WinRAR\WinRAR.exe" x -ibck "!mypath_not_set!!temp_folder!\!package!" *.* "!mypath_not_set!!folder_name!\"
+			rem "%ProgramFiles%\WinRAR\WinRAR.exe" x -ibck "!mypath_not_set!!temp_folder!\!package!" *.* "!mypath_not_set!!folder_name!\"
+			!mypath!"bin\scripts\WinRARPortable.exe" "!mypath_not_set!!temp_folder!\!package!" "!mypath_not_set!!folder_name!\"
         ) else (
 	    rem download if not exist:
             echo [#] file '!mypath_not_set!!temp_folder!\!package!' doesn't exist.
@@ -64,7 +65,8 @@ if %1==git (
             powershell -Command "Invoke-WebRequest !git_url! -OutFile '!mypath_not_set!!temp_folder!\!package!'"
 		    echo [#] Unzip the file '!mypath_not_set!!temp_folder!\!package!'.
 		    rem powershell Expand-Archive -Path '!mypath_not_set!!temp_folder!\!package!' -DestinationPath '!mypath_not_set!!folder_name!' -Force
-			"%ProgramFiles%\WinRAR\WinRAR.exe" x -ibck "!mypath_not_set!!temp_folder!\!package!" *.* "!mypath_not_set!!folder_name!\"
+			rem "%ProgramFiles%\WinRAR\WinRAR.exe" x -ibck "!mypath_not_set!!temp_folder!\!package!" *.* "!mypath_not_set!!folder_name!\"
+			!mypath!"bin\scripts\WinRARPortable.exe" "!mypath_not_set!!temp_folder!\!package!" "!mypath_not_set!!folder_name!\"
         )
 	)
 	
@@ -81,10 +83,11 @@ if %1==git (
 				rem echo !git_version!
 				rem echo '!git_path!\git --version'
 				rem echo !git_path!\bash
-			
-			    !py_default! "!python_console_tools!" -opt_2b !git_path!
+			    if not "!opt:~0,6!"=="python" (
+			        !py_default! "!python_console_tools!" -opt_2b !git_path!
                 rem FOR /F "tokens=*" %%g IN ('!git_path!\git --version') do (echo # %%g !to! bash, git)
-            )
+                )
+			)
 		)
 	)
 	
