@@ -78,6 +78,7 @@ elif sys.argv[1]=="-opt_3":
     
 #help_list:
 elif sys.argv[1]=="-h":
+    argv2=sys.argv[2].replace("'","")
     help_t=f"""Help:
 ═════
 # In order to modify the settings and comprehensive control, please modify the file 'config.ini'.
@@ -99,21 +100,21 @@ elif sys.argv[1]=="-h":
          restart                 |   # Restart command line interface.
          clear                   |   # Delete cache files and folders.
 [USAGE]
-    For run a Python script:                                     Examples:
-    ------------------------                                     ---------
-    <Console-Launcher.bat> <python> <python_script_path>    |    Console-Launcher.bat python {sys.argv[2].replace("'","")}python_test.py
-                                                            |    Console-Launcher.bat python388 {sys.argv[2].replace("'","")}python_test.py
+    For run a Python script:                        Examples:
+    ------------------------                        ---------
+    <Console-Launcher.bat> <python> <script_path> | "{argv2}Console-Launcher.bat" python "{argv2}python_test.py"
+                                                  | "{argv2}Console-Launcher.bat" python388 "{argv2}python_test.py"
     
-    To run this program in a specified path:                     Example:
-    ----------------------------------------                     --------
-    <Console-Launcher.bat> run <your_path>                  |    Console-Launcher.bat run {sys.argv[2].replace("'","")}
+    To run this program in a specified path:        Example:
+    ----------------------------------------        --------
+    <Console-Launcher.bat> run <your_path>        | "{argv2}Console-Launcher.bat" run "{argv2}"
 """
 
     print(help_t)
 
 #clear:
 elif sys.argv[1]=="clear":
-    print(sys.argv[1])
+    #print(sys.argv[1])
     ss=os.path.realpath(sys.argv[2]).split(os.sep)
     path_to_clear=""
     for i in range(len(ss)-1):
